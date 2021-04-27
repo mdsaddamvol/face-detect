@@ -4,11 +4,7 @@ import * as faceapi from "face-api.js";
 
 import Webcam from "react-webcam";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import firebase, {
-	createUserindatabase,
-	firestore,
-	storageRef,
-} from "../firebase/firebase-config";
+import { createUserindatabase } from "../firebase/firebase-config";
 function Signup() {
 	const videoRef = useRef(null);
 	const imgRef = useRef(null);
@@ -16,7 +12,7 @@ function Signup() {
 	const [fullName, setFullName] = useState("");
 	const [email, setEmail] = useState("");
 	const [imageSrc, setImageSrc] = useState(null);
-	const [discriptor, setdiscriptor] = useState(null);
+
 	useEffect(() => {
 		const loadmodel = async () => {
 			const MODEL_URL = process.env.PUBLIC_URL + "models";
@@ -44,45 +40,6 @@ function Signup() {
 	};
 	const handleConfrim = () => {
 		createUserindatabase(fullName, email, imageSrc);
-
-		/*	if (imageSrc && email) {
-			var metadata = {
-				contentType: "image/jpeg",
-			};
-			const uploadTask = storageRef
-				.child(`${email}`)
-				.putString(imageSrc,);
-			uploadTask.on(
-				firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-				function (snapshot) {
-					// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-					var progress =
-						(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-					console.log("Upload is " + progress + "% done");
-					switch (snapshot.state) {
-						case firebase.storage.TaskState.PAUSED: // or 'paused'
-							console.log("Upload is paused");
-							break;
-						case firebase.storage.TaskState.RUNNING: // or 'running'
-							console.log("Upload is running");
-							break;
-					}
-				},
-				function (error) {
-					console.log(error);
-				},
-				function () {
-					// Upload completed successfully, now we can get the download URL
-					const downloadU = uploadTask.snapshot.ref
-						.getDownloadURL()
-						.then((url) => {
-							if (url) {
-								createUserindatabase(fullName, email, url);
-							}
-						});
-				}
-			);
-		}*/
 	};
 	return (
 		<div className='App'>

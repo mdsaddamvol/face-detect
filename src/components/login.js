@@ -8,7 +8,6 @@ import { firestore } from "../firebase/firebase-config";
 function Login(props) {
 	const videoRef = useRef(null);
 	const [user, setUser] = useState([]);
-	const imgRef2 = useRef(null);
 
 	const [imageSrc, setImageSrc] = useState();
 	const [step, setStep] = useState(1);
@@ -160,7 +159,12 @@ function Login(props) {
 						</>
 					)}
 
-					{status === "notMatch" && <div>does not match</div>}
+					{status === "notMatch" && (
+						<>
+							<div>does not match</div>
+							<button onClick={() => setStatus("scan")}>Try again</button>
+						</>
+					)}
 				</>
 			)}
 			<Link to='/signup'>

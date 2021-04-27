@@ -1,7 +1,12 @@
 import React from "react";
 
 const Dashboard = (props) => {
-	return <div>{`welcome ${props.location.state.state.fullName}`}</div>;
+	return (
+		<>
+			<h1>Dashboard</h1>
+			<h3>{`welcome ${props.location.state.state.fullName}`}</h3>
+		</>
+	);
 };
 
 export default Dashboard;

@@ -25,7 +25,6 @@ export const createUserindatabase = async (fullName, email, url) => {
 	const snapshot = await userRef.get();
 
 	if (!snapshot.exists) {
-		const createdAt = new Date();
 		try {
 			userRef.set({
 				email: email,
@@ -37,29 +36,6 @@ export const createUserindatabase = async (fullName, email, url) => {
 		}
 	}
 	return userRef;
-};
-export const saveProfile = async (email, profileData) => {
-	if (!email || !profileData) return;
-
-	const profileRef = firestore.doc(`profiles/${email}`);
-	const snapshot = await profileRef.get();
-
-	if (!snapshot.exists) {
-		const createdAt = new Date();
-		try {
-			profileRef.set({
-				...profileData,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	}
-	if (snapshot.exists) {
-		profileRef.update({
-			...profileData,
-		});
-	}
-	return profileRef;
 };
 
 export const firestore = firebase.firestore();
