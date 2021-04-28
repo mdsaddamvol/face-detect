@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-
+import "./login.css";
 import * as faceapi from "face-api.js";
 
 import Webcam from "react-webcam";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { createUserindatabase } from "../firebase/firebase-config";
-function Signup() {
+function Signup(props) {
 	const videoRef = useRef(null);
 	const imgRef = useRef(null);
 	const [step, setStep] = useState(1);
@@ -39,20 +39,26 @@ function Signup() {
 		console.log(imageSr);
 	};
 	const handleConfrim = () => {
-		createUserindatabase(fullName, email, imageSrc);
+		createUserindatabase(fullName, email, imageSrc).then(() => {
+			props.history.push("/dashboard", { state: { fullName: fullName } });
+		});
 	};
 	return (
 		<div className='App'>
+			<h1>SIGN UP PAGE</h1>
 			{step === 1 && (
 				<form>
 					<input
+						style={{ margin: 10, width: 290, height: 50 }}
 						name='name'
 						type='text'
 						value={fullName}
 						onChange={(e) => setFullName(e.target.value)}
 						required
+						placeholder='Full Name'
 					/>
 					<input
+						style={{ margin: 10, width: 290, height: 50 }}
 						type='email'
 						name='email'
 						value={email}
@@ -61,11 +67,13 @@ function Signup() {
 						placeholder='email'
 					/>
 					<button
-						style={{ width: 200, height: 50 }}
+						style={{ margin: 10, width: 300, height: 50 }}
 						onClick={() => {
 							setStep(2);
 						}}
-					></button>
+					>
+						Next
+					</button>
 				</form>
 			)}
 			{step === 2 && (
@@ -81,7 +89,7 @@ function Signup() {
 								videoConstraints={videoConstraints}
 							/>
 							<button
-								style={{ width: 200, height: 50 }}
+								style={{ margin: 10, width: 500, height: 50 }}
 								onClick={() => {
 									handleplay();
 								}}
@@ -93,7 +101,7 @@ function Signup() {
 						<>
 							<img alt='text img' ref={imgRef} src={imageSrc} />
 							<button
-								style={{ width: 200, height: 50 }}
+								style={{ margin: 10, width: 200, height: 50 }}
 								onClick={() => {
 									setImageSrc(null);
 								}}
@@ -101,7 +109,7 @@ function Signup() {
 								Take a shot again
 							</button>
 							<button
-								style={{ width: 200, height: 50 }}
+								style={{ margin: 10, width: 500, height: 50 }}
 								onClick={() => {
 									handleConfrim();
 								}}

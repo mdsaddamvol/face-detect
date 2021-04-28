@@ -8,7 +8,6 @@ import { firestore } from "../firebase/firebase-config";
 function Login(props) {
 	const videoRef = useRef(null);
 	const [user, setUser] = useState([]);
-
 	const [imageSrc, setImageSrc] = useState();
 	const [step, setStep] = useState(1);
 	const [uri, setUri] = useState([]);
@@ -102,10 +101,11 @@ function Login(props) {
 	};
 	return (
 		<div className='App'>
+			<h1>LOGIN PAGE</h1>
 			{step === 1 && (
 				<form>
 					<input
-						style={{ width: 200, height: 50 }}
+						style={{ margin: "5px 10px", width: 290, height: 50 }}
 						type='email'
 						name='email'
 						value={email}
@@ -115,7 +115,7 @@ function Login(props) {
 					/>
 
 					<button
-						style={{ width: 200, height: 50 }}
+						style={{ margin: "5px 10px", width: 300, height: 50 }}
 						onClick={() => {
 							setStep(2);
 						}}
@@ -138,7 +138,7 @@ function Login(props) {
 							/>
 
 							<button
-								style={{ width: 200, height: 50 }}
+								style={{ margin: "5px 10px", width: 500, height: 50 }}
 								onClick={() => {
 									handleplay();
 								}}
